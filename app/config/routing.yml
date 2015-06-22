@@ -1,3 +1,7 @@
+unrtech_content:
+    resource: "@UnrtechContentBundle/Controller/"
+    type:     annotation
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
