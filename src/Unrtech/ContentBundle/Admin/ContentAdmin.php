@@ -16,35 +16,45 @@ class ContentAdmin extends Admin
 {
     protected $locale;
 
+    public function getFormTheme()
+    {
+
+        return array_merge(parent::getFormTheme(),
+            array(
+                'UnrtechContentBundle:Admin:widget_media.html.twig'
+            )
+        );
+    }
+
     /**
      * @param ListMapper $listMapper
      */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('featuredPicture', null, array('template' => 'UnrtechContentBundle:Back:picture.html.twig'))
+            ->add('featuredPicture', null, array('template' => 'UnrtechContentBundle:Admin:picture.html.twig'))
             ->add('title', null, array('label' => 'general.model.content.title'))
             ->add('status', null, array(
                 'label'    => 'general.model.content.status',
-                'template' => 'UnrtechContentBundle:Back:status_display.html.twig'
+                'template' => 'admin:Back:status_display.html.twig'
             ))
             ->add('tags', null)
             ->add('categories', null)
             ->add('startPublicationDate', null, array(
                 'label'              => 'general.model.content.start_publication',
-                'translation_domain' => 'UnrtechContentBundle',
+                'translation_domain' => 'admin',
             ))
             ->add('endPublicationDate', null, array(
                 'label'              => 'general.model.content.end_publication',
-                'translation_domain' => 'UnrtechContentBundle',
+                'translation_domain' => 'admin',
             ))
             ->add('lastUpdate', 'datetime', array(
                 'label'              => 'general.model.content.last_update',
-                'translation_domain' => 'UnrtechContentBundle',
+                'translation_domain' => 'admin',
             ))
             ->add('lang', null, array(
                 'label'    => 'general.model.content.lang',
-                'template' => 'UnrtechContentBundle:Back:langs.html.twig'
+                'template' => 'admin:Back:langs.html.twig'
             ));
     }
 
@@ -59,19 +69,18 @@ class ContentAdmin extends Admin
 
         $formMapper
             ->tab('Général')
-                ->add('featuredPicture', 'sonata_type_picture_model_list', array(
-                    'label'              => 'model.label.featured_picture',
-                    'translation_domain' => 'UnrtechContentBundle',
+                ->add('featuredPicture', 'sonata_type_model_list', array(
+                    'label' => 'Logo',
+                    'class' => 'ApplicationSonataMediaBundle:Media',
+                    'translation_domain' => 'admin',
                     'required'           => false,
-                    'sonata_admin'       => 'sonata.media.admin.media',
-                    'model_manager'      => $this->getModelManager(),
                     'attr'               => array(
                         'class' => 'columnable'
                     )
                 ))
                 ->add('startPublicationDate', 'sonata_type_datetime_picker', array(
                     'label'              => 'general.model.content.start_publication',
-                    'translation_domain' => 'UnrtechContentBundle',
+                    'translation_domain' => 'admin',
                     'required'           => false,
                     'dp_side_by_side'       => true,
                     'dp_use_current'        => false,
@@ -81,7 +90,7 @@ class ContentAdmin extends Admin
                 ))
                 ->add('endPublicationDate', 'sonata_type_datetime_picker', array(
                     'label'              => 'general.model.content.end_publication',
-                    'translation_domain' => 'UnrtechContentBundle',
+                    'translation_domain' => 'admin',
                     'required'           => false,
                     'dp_side_by_side'    => true,
                     'dp_use_current'     => false,
@@ -91,7 +100,7 @@ class ContentAdmin extends Admin
                 ))
                 ->add('title', 'text', array(
                     'label'              => 'general.model.content.title',
-                    'translation_domain' => 'UnrtechContentBundle',
+                    'translation_domain' => 'admin',
                     'required'           => true,
                     'attr'               => array(
                         'class'           => 'input-title input-lg col-xs-12',
@@ -101,22 +110,22 @@ class ContentAdmin extends Admin
                 ->add('excerpt', 'textarea', array(
                     'attr'               => array('class' => ''),
                     'label'              => 'general.model.content.excerpt',
-                    'translation_domain' => 'UnrtechContentBundle',
+                    'translation_domain' => 'admin',
                     'required'           => true,
                     'attr'               => array(
                         'data-count-char' => $this->configurationPool->getContainer()->get('translator')->trans('general.model.content.char_count_msg', [], 'admin'),
                     )
                 ))
-                ->add('content', 'ckeditor', array(
+                ->add('content', 'textarea', array(
                     'attr'               => array('class' => 'tinymce'),
                     'label'              => 'general.model.content.content',
-                    'translation_domain' => 'UnrtechContentBundle',
+                    'translation_domain' => 'admin',
                     'required'           => false,
                 ))
                 ->add('categories', 'sonata_type_model', array(
-                    'class' => 'UnrtechContentBundle:Category',
+                    'class' => 'ApplicationSonataClassificationBundle:Category',
                     'label'              => 'general.block.categories',
-                    'translation_domain' => 'UnrtechContentBundle',
+                    'translation_domain' => 'admin',
                     'multiple' => true,
                     'required' => false,
                     'attr'               => array(
@@ -124,9 +133,9 @@ class ContentAdmin extends Admin
                     )
                 ))
                 ->add('tags', 'sonata_type_model', array(
-                    'class' => 'UnrtechContentBundle:Tag',
+                    'class' => 'ApplicationSonataClassificationBundle:Tag',
                     'label'              => 'general.block.tags',
-                    'translation_domain' => 'UnrtechContentBundle',
+                    'translation_domain' => 'admin',
                     'multiple' => true,
                     'required' => false,
                     'attr'               => array(
@@ -150,28 +159,28 @@ class ContentAdmin extends Admin
             //@TODO Make SEO admin
 //            ->add('seoPreview', 'hidden', array(
 //                'label'              => 'general.model.content.seo_preview',
-//                'translation_domain' => 'UnrtechContentBundle',
+//                'translation_domain' => 'admin',
 //                'required'           => false,
 //                'attr'               => array(
 //                    'class' => 'preview-google col-xs-12'
 //                )))
 //            ->add('seoTitle', 'text', array(
 //                'label'              => 'general.model.content.seo_title',
-//                'translation_domain' => 'UnrtechContentBundle',
+//                'translation_domain' => 'admin',
 //                'required'           => false,
 //                'attr'               => array(
 //                    'class' => 'input-seo-title input-lg col-xs-12'
 //                )))
 //            ->add('seoDescription', 'textarea', array(
 //                'label'              => 'general.model.content.seo_description',
-//                'translation_domain' => 'UnrtechContentBundle',
+//                'translation_domain' => 'admin',
 //                'required'           => false,
 //                'attr'               => array(
 //                    'class' => 'input-seo-description col-xs-12'
 //                )))
 //            ->add('seoMeta', 'text', array(
 //                'label'              => 'general.model.content.seo_meta',
-//                'translation_domain' => 'UnrtechContentBundle',
+//                'translation_domain' => 'admin',
 //                'required'           => false,
 //                'attr'               => array(
 //                    'class' => 'input-seo-keyword input-lg col-xs-12'

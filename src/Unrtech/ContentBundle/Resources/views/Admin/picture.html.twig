@@ -1,0 +1,2 @@
+{% if object.featuredPicture is defined and object.featuredPicture is not null %}{{ render(controller('ManaCoreBundle:BackOffice:picture', {'id':object.featuredPicture.id})) }}{% endif %}
+{% if object.gallery is defined and object.gallery is not null  %}{{ render(controller('ManaCoreBundle:BackOffice:pictures', {'id':object.gallery.id})) }}{% endif %}
