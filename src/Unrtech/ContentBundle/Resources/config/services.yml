@@ -1,3 +1,5 @@
+imports:
+    - { resource: admin.yml }
 services:
 #    unrtech_content.example:
 #        class: Unrtech\ContentBundle\Example

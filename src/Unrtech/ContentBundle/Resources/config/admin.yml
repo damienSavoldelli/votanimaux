@@ -1,0 +1,9 @@
+services:
+    admin.article:
+        class: Unrtech\ContentBundle\Admin\ArticleAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "general.articles", label: "general.articles", label_catalogue: "admin" }
+        arguments:
+            - ~
+            - Unrtech\ContentBundle\Entity\Article
+            - 'UnrtechContentBundle:CRUD'

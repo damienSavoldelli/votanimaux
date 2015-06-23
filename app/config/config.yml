@@ -76,6 +76,7 @@ doctrine:
                     ApplicationSonataUserBundle: ~
                     SonataClassificationBundle: ~
                     ApplicationSonataClassificationBundle: ~
+                    UnrtechContentBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
