@@ -62,25 +62,25 @@ abstract class BaseContent implements ContentInterface
     protected $content;
 
     /**
-     * @var ManaUserBase
+     * @var User
      * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      */
     protected $author;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      * @ORM\Column(type="datetime")
      */
     protected $lastUpdate;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $startPublicationDate;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $endPublicationDate;
@@ -268,7 +268,7 @@ abstract class BaseContent implements ContentInterface
     }
 
     /**
-     * @return D\ateTime
+     * @return \DateTime
      */
     public function getStartPublicationDate() {
 

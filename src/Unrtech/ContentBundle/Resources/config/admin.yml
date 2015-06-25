@@ -7,3 +7,11 @@ services:
             - ~
             - Unrtech\ContentBundle\Entity\Article
             - 'UnrtechContentBundle:CRUD'
+    admin.seo:
+        class: Unrtech\ContentBundle\Admin\SeoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "general.reference", label: "general.seo", label_catalogue: "admin" }
+        arguments:
+            - ~
+            - Unrtech\ContentBundle\Entity\Seo
+            - 'UnrtechContentBundle:CRUD'

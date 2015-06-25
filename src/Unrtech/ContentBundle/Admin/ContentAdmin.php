@@ -154,38 +154,14 @@ class ContentAdmin extends Admin
             ->end()
             ->tab('SEO')
                 ->add('seo', 'sonata_type_model_list', array(
-                    'sonata_admin' => 'mana.admin.seo'
+                    'label' => 'SEO',
+                    'class' => 'UnrtechContentBundle:Seo',
+                    'translation_domain' => 'admin',
+                    'required'           => false,
+                    'attr'               => array(
+                        'class' => 'columnable'
+                    )
                 ))
-            //@TODO Make SEO admin
-//            ->add('seoPreview', 'hidden', array(
-//                'label'              => 'general.model.content.seo_preview',
-//                'translation_domain' => 'admin',
-//                'required'           => false,
-//                'attr'               => array(
-//                    'class' => 'preview-google col-xs-12'
-//                )))
-//            ->add('seoTitle', 'text', array(
-//                'label'              => 'general.model.content.seo_title',
-//                'translation_domain' => 'admin',
-//                'required'           => false,
-//                'attr'               => array(
-//                    'class' => 'input-seo-title input-lg col-xs-12'
-//                )))
-//            ->add('seoDescription', 'textarea', array(
-//                'label'              => 'general.model.content.seo_description',
-//                'translation_domain' => 'admin',
-//                'required'           => false,
-//                'attr'               => array(
-//                    'class' => 'input-seo-description col-xs-12'
-//                )))
-//            ->add('seoMeta', 'text', array(
-//                'label'              => 'general.model.content.seo_meta',
-//                'translation_domain' => 'admin',
-//                'required'           => false,
-//                'attr'               => array(
-//                    'class' => 'input-seo-keyword input-lg col-xs-12'
-//                )))
-
             ->end();
 
         return $formMapper;
@@ -206,25 +182,12 @@ class ContentAdmin extends Admin
     }
 
     /**
-     * @param \Knp\Menu\ItemInterface                  $menu
-     * @param                                          $action
-     * @param \Sonata\AdminBundle\Admin\AdminInterface $childAdmin
-     */
-    public function configureSideMenu(\Knp\Menu\ItemInterface $menu, $action, \Sonata\AdminBundle\Admin\AdminInterface $childAdmin = null){
-        if (!$childAdmin && !in_array($action, array('edit', 'create'))) {
-            return;
-        }
-        $menu->addChild(' ', array());
-    }
-
-    /**
      * @param mixed $object
      */
     public function prePersist($object)
     {
-        $object = parent::prePersist($object);
 
-        $object->setAuthor($this->getConfigurationPool()->getContainer()->get('mana.helper')->getCurrentUser());
+        $object->setAuthor($this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser());
         $object->setLastUpdate(new \DateTime('now'));
     }
 
@@ -233,25 +196,7 @@ class ContentAdmin extends Admin
      */
     public function preUpdate($object)
     {
-        $object = parent::preUpdate($object);
-        if (Property::CONTENT_PUBLISHED === $object->getStatus()) {
-            $object->undeleteToPublish();
-        }
-        if (Property::CONTENT_PENDING === $object->getStatus()) {
-            $object->undelete();
-        }
-
-        $object->setAuthor($this->getConfigurationPool()->getContainer()->get('mana.helper')->getCurrentUser());
+        $object->setAuthor($this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser());
         $object->setLastUpdate(new \DateTime('now'));
-    }
-
-    /**
-     * overide export formats to hide it
-     *
-     * @return array
-     */
-    public function getExportFormats()
-    {
-        return array();
     }
 }

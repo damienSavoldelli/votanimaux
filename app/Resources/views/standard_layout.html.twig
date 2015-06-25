@@ -331,4 +331,12 @@ file that was distributed with this source code.
             </div>
         {% endblock sonata_wrapper %}
     </body>
+    {% block foot_javascript %}
+        <script type="text/javascript" src="{{ asset('bundles/app/js/app.js') }}"></script>
+        <script>
+            window.onload = function(){
+                UNRTECH_APP.init();
+            }
+        </script>
+    {% endblock foot_javascript %}
 </html>
