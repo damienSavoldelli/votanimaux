@@ -1,0 +1,37 @@
+services:
+    admin.cat_comptetition:
+        class: Unrtech\CompetitionBundle\Admin\CatCompetitionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "general.competitions", label: "general.competition.cat", label_catalogue: "competitions" }
+        arguments:
+            - ~
+            - Unrtech\CompetitionBundle\Entity\CatCompetition
+            - ~
+            - @admin.helper
+    admin.dog_comptetition:
+        class: Unrtech\CompetitionBundle\Admin\DogCompetitionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "general.competitions", label: "general.competition.dog", label_catalogue: "competitions" }
+        arguments:
+            - ~
+            - Unrtech\CompetitionBundle\Entity\DogCompetition
+            - ~
+            - @admin.helper
+    admin.other_comptetition:
+        class: Unrtech\CompetitionBundle\Admin\OtherCompetitionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "general.competitions", label: "general.competition.other", label_catalogue: "competitions" }
+        arguments:
+            - ~
+            - Unrtech\CompetitionBundle\Entity\OtherCompetition
+            - ~
+            - @admin.helper
+    admin.association_comptetition:
+        class: Unrtech\CompetitionBundle\Admin\AssociationCompetitionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "general.competitions", label: "general.competition.association", label_catalogue: "competitions" }
+        arguments:
+            - ~
+            - Unrtech\CompetitionBundle\Entity\AssociationCompetition
+            - ~
+            - @admin.helper

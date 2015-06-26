@@ -1,0 +1,6 @@
+imports:
+    - { resource: admin.yml }
+services:
+#    unrtech_competition.example:
+#        class: Unrtech\CompetitionBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

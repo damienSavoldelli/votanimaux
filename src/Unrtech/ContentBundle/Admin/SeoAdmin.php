@@ -42,7 +42,7 @@ class SeoAdmin extends Admin {
             ->add('title', 'string', array('label' => 'general.model.content.title'))
             ->add('lang', null, array(
                 'label'    => 'general.model.content.lang',
-//                'template' => 'ManaCoreBundle:Back:langs.html.twig'
+//                'template' => 'UnrtechContentBundle:Back:langs.html.twig'
             ))
             ->add('_action', 'actions', array(
                 'actions' => array(

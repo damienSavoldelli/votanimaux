@@ -1,0 +1,9 @@
+<td class="sonata-ba-list-field sonata-ba-list-field-currency">
+    {% if object is defined and object is not null %}
+        {% if object.sexe is defined and object.sexe == 'F' %}
+            {{ 'general.model.animal.female'|trans({}, 'competition') }}
+        {% else %}
+            {{ 'general.model.animal.male'|trans({}, 'competition') }}
+        {% endif %}
+    {% endif %}
+</td>

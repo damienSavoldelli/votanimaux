@@ -3,7 +3,6 @@
 namespace Unrtech\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mana\Bundle\I18NBundle\Model\TranslatableEntityInterface;
 
 /**
  * Seo

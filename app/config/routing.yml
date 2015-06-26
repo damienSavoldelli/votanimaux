@@ -1,3 +1,11 @@
+i18n:
+    resource: "@I18nBundle/Resources/config/routing.yml"
+    prefix:   /
+
+unrtech_competition:
+    resource: "@UnrtechCompetitionBundle/Resources/config/routing.yml"
+    prefix:   /
+
 unrtech_content:
     resource: "@UnrtechContentBundle/Controller/"
     type:     annotation

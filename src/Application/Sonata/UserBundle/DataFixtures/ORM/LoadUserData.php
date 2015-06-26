@@ -1,6 +1,6 @@
 <?php
 
-namespace Mana\Bundle\UserBundle\DataFixtures\ORM;
+namespace Application\Sonata\UserBundle\DataFixtures\ORM;
 
 use Application\Sonata\UserBundle\Entity\User;
 use Doctrine\Common\DataFixtures\FixtureInterface;

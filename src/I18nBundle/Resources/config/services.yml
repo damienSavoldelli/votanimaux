@@ -1,0 +1,4 @@
+services:
+#    i18n.example:
+#        class: I18nBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

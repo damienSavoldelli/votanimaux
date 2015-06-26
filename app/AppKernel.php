@@ -46,6 +46,8 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
             new Unrtech\ContentBundle\UnrtechContentBundle(),
+            new Unrtech\CompetitionBundle\UnrtechCompetitionBundle(),
+            new I18nBundle\I18nBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

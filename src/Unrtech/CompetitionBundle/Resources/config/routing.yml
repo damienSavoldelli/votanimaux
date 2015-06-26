@@ -1,0 +1,3 @@
+unrtech_competition_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: UnrtechCompetitionBundle:Default:index }
