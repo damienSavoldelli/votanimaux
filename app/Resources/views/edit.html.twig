@@ -1,6 +1,7 @@
 {% extends 'SonataAdminBundle:CRUD:base_edit.html.twig' %}
 
 {% block form %}
+    {% import ":Back:base_edit_form_macro.html.twig" as form_helper %}
     {#{{ render(controller('ManaI18NBundle:I18N:langsAndCurrent')) }}#}
     {{ sonata_block_render_event('sonata.admin.edit.form.top', { 'admin': admin, 'object': object }) }}
 
@@ -48,9 +49,11 @@
                                                         <p>{{ form_tab.description|raw }}</p>
                                                     {% endif %}
 
-                                                    {{ form_helper.render_groups(admin, form, form_tab['groups'], has_tab) }}
+                                                    {{ form_helper.render_groups_left(admin, form, form_tab['groups'], has_tab) }}
                                                 </div>
-                                                <div class="sonata-ba-collapsed-fields col-xs-3 column-blocs" style="margin: -25px;"></div>
+                                                <div class="sonata-ba-collapsed-fields col-xs-3 column-blocs" style="margin: -25px;top:25px;">
+                                                    {{ form_helper.render_groups_right(admin, form, form_tab['groups'], has_tab) }}
+                                                </div>
                                                 <div class="clearfix"></div>
                                             </div>
                                         </div>

@@ -6,6 +6,9 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
 #SONATA AMDIN ROUTES
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'

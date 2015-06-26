@@ -1,11 +1,26 @@
 {% extends '@SonataDoctrineORMAdmin/Form/form_admin_fields.html.twig' %}
 {% block sonata_type_model_list_widget %}
-    <div class="row">
-        <div class="col-xs-4">
-            {% media sonata_admin.value, 'small' with {'class': 'img-responsive'} %}
+    <div class="row media_block_{{ form.vars.id }}">
+        <div class="col-xs-4 media_render">
+            {{ include('@UnrtechContent/Admin/media_render.html.twig', {'media': sonata_admin.value}) }}
         </div>
         <div class="col-xs-8">
             {{ parent() }}
         </div>
     </div>
+    <script>
+        jQuery(document).ready(function($){
+            $('#{{ form.vars.id }}').change(function(){
+                if ($(this).val() != '') {
+                    $.get(Routing.generate('admin_render_media', {id: $(this).val()}), function (res) {
+                        if (res) {
+                            $('div.media_block_{{ form.vars.id }}').find('div.media_render').html(res);
+                        }
+                    });
+                } else {
+                    $('div.media_block_{{ form.vars.id }}').find('div.media_render').html('');
+                }
+            });
+        });
+    </script>
 {% endblock %}

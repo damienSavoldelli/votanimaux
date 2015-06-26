@@ -1,0 +1,9 @@
+<td class="sonata-ba-list-field sonata-ba-list-field-currency span8">
+    {% if gallery is defined and gallery is not null and gallery.galleryHasMedias|length > 0 %}
+        {% for hasMedia in gallery.galleryHasMedias %}
+            {% if hasMedia.media is defined and hasMedia.media is not null %}
+                <img src="{% path hasMedia.media, 'small' %}" class="pull-left span1"/>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</td>

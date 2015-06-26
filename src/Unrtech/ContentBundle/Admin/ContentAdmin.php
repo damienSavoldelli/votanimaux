@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Admin\Admin;
+use Unrtech\ContentBundle\Helper\AdminHelper;
 
 /**
  * Description of ContentAdmin
@@ -14,7 +15,20 @@ use Sonata\AdminBundle\Admin\Admin;
  */
 class ContentAdmin extends Admin
 {
+    /**
+     * @param string $code
+     * @param string $class
+     * @param string $baseControllerName
+     * @param AdminHelper $helper
+     */
+    public function __construct($code, $class, $baseControllerName, AdminHelper $helper)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->helper = $helper;
+    }
     protected $locale;
+
+    protected $helper;
 
     public function getFormTheme()
     {
@@ -75,6 +89,7 @@ class ContentAdmin extends Admin
                     'translation_domain' => 'admin',
                     'required'           => false,
                     'attr'               => array(
+                        'columnable' => true,
                         'class' => 'columnable'
                     )
                 ))
@@ -87,6 +102,9 @@ class ContentAdmin extends Admin
                     'dp_use_seconds'        => false,
                     'date_format'           => 'dd/MM/yyyy HH:mm',
                     'format'                => 'dd/MM/yyyy HH:mm',
+                    'attr' => array(
+                        'columnable' => true,
+                    )
                 ))
                 ->add('endPublicationDate', 'sonata_type_datetime_picker', array(
                     'label'              => 'general.model.content.end_publication',
@@ -97,6 +115,9 @@ class ContentAdmin extends Admin
                     'dp_use_seconds'     => false,
                     'date_format'        => 'dd/MM/yyyy HH:mm',
                     'format'             => 'dd/MM/yyyy HH:mm',
+                    'attr' => array(
+                        'columnable' => true,
+                    )
                 ))
                 ->add('title', 'text', array(
                     'label'              => 'general.model.content.title',
@@ -128,7 +149,8 @@ class ContentAdmin extends Admin
                     'translation_domain' => 'admin',
                     'multiple' => true,
                     'required' => false,
-                    'attr'               => array(
+                    'attr'     => array(
+                        'columnable' => true,
                         'class' => 'columnable',
                     )
                 ))
@@ -138,15 +160,17 @@ class ContentAdmin extends Admin
                     'translation_domain' => 'admin',
                     'multiple' => true,
                     'required' => false,
-                    'attr'               => array(
+                    'attr'     => array(
+                        'columnable' => true,
                         'class' => 'columnable',
                     )
                 ))
                 ->add('status', 'choice', array(
-                    'required' => false,
-                    'choices' => [],
+                    'required' => true,
+                    'choices' => $this->helper->getStatusChoices($this->locale),
                     'attr'     => array(
-                        'class'   => 'status-current columnable',
+                        'columnable' => true,
+                        'class'   => 'status-current',
                         'data-id' => 'status-current'
                     )
                 ))
@@ -186,7 +210,9 @@ class ContentAdmin extends Admin
      */
     public function prePersist($object)
     {
-
+        if (!$object->getLocale()) {
+            $object->setLocale('fr');
+        }
         $object->setAuthor($this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser());
         $object->setLastUpdate(new \DateTime('now'));
     }

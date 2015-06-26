@@ -7,6 +7,7 @@ services:
             - ~
             - Unrtech\ContentBundle\Entity\Article
             - 'UnrtechContentBundle:CRUD'
+            - @admin.helper
     admin.seo:
         class: Unrtech\ContentBundle\Admin\SeoAdmin
         tags:
